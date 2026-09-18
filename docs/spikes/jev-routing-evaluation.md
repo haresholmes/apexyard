@@ -93,6 +93,30 @@ handled directly, and it added skill suggestions to role-only work. The labels
 are human-authored pilot labels, not a statistically powered benchmark; a
 larger independently reviewed holdout set is required before a routing change.
 
+### Separate AgDR quality pass
+
+AgDR quality was tested separately from routing. Twenty historical records were
+sampled across the framework's AgDR history. Each state included required
+section presence, missing sections, metadata, document length, and excerpts
+from Context, Decision, and Consequences. Jev answered one typed completeness
+question per record: `complete`, `incomplete`, or `needs_review`.
+
+| Measure | Result |
+| --- | ---: |
+| AgDR records | 20 |
+| Jev requests | 20 |
+| Provider failures | 0 |
+| Mean latency | 610.0 ms |
+| Agreement with structural proxy | 80.0% |
+| Incomplete records missed by Jev | 4 of 5 |
+
+This result is only a structural pilot. The comparison label was generated
+from required headings, minimum content, and placeholder checks; it was not an
+independent judgment of decision quality. It suggests that AgDR completeness
+triage is a more plausible Jev experiment than intent routing, but it does not
+justify a gate. A follow-up needs independently reviewed labels for
+completeness, trade-off quality, and staleness, plus an abstention threshold.
+
 ## Safety and fallback result
 
 No hook, settings file, merge gate, or routing decision was changed. Jev is
@@ -105,11 +129,12 @@ an explicit failure-path test.
 ## Disposition
 
 **Discard the integration hypothesis for the current framework gates.** The
-small shadow run does not show that Jev beats the existing deterministic
-phrase maps on false positives and false negatives, and the ceremony result is
-not ready for an advisory gate. Keep Jev as an optional experiment for a
-separate, non-blocking routing surface only if a larger labeled corpus and a
-Haiku cost/latency comparison show a clear benefit.
+routing runs do not show that Jev beats the existing deterministic phrase maps
+on false positives and false negatives, and ceremony classification remains
+unreliable. The separate AgDR pass is a promising research direction, but its
+structural proxy is not a quality oracle. Keep Jev out of enforcement and
+approval decisions unless larger independently labeled corpora, an abstention
+policy, and a Haiku cost/latency comparison show a clear benefit.
 
 The dependent feature tickets (#1342 and #1343) should remain blocked until
 that evidence exists. The current framework continues to use deterministic
