@@ -71,6 +71,28 @@ small corpus.
 The repeated pass used 33,354 input tokens and 9,563 output tokens. It did not
 change the disposition below.
 
+### Corrected structured-state pass
+
+The smoke test was repeated with a richer state and independent questions. Each
+case included the hook event, changed paths, ticket type, file and line counts,
+reversibility, and risk flags. Jev received one typed question per routing
+dimension rather than inferring all dimensions from a bare sentence. The run
+contained 15 cases and 45 requests:
+
+| Measure | Result |
+| --- | ---: |
+| Jev skill accuracy | 73.3% |
+| Jev role accuracy | 66.7% |
+| Jev ceremony accuracy | 46.7% |
+| Mean request latency | 637.1 ms |
+| Provider failures | 0 |
+
+This is a fairer input shape, but it still does not support enabling Jev. Jev
+misclassified several path-trigger cases that the existing deterministic hook
+handled directly, and it added skill suggestions to role-only work. The labels
+are human-authored pilot labels, not a statistically powered benchmark; a
+larger independently reviewed holdout set is required before a routing change.
+
 ## Safety and fallback result
 
 No hook, settings file, merge gate, or routing decision was changed. Jev is
