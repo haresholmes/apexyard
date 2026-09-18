@@ -58,6 +58,19 @@ The corpus is too small to claim production quality, and it does not provide a
 Haiku comparison. No Haiku credential or benchmark harness was supplied, so
 the latency, cost, and quality comparison from #195 remains open.
 
+### Repeatability pass
+
+The same corpus was run three times sequentially, for 45 Jev requests. All
+requests succeeded. Mean request latency by run was 632.3 ms, 625.1 ms, and
+656.3 ms; the three-run mean was 637.9 ms. Skill accuracy stayed at 73.3% in
+all three runs. Role accuracy was 80.0% on the first run and 73.3% on the next
+two. Ceremony accuracy stayed at 33.3%. One case changed its role answer
+between runs, which confirms that the result is not fully stable even on this
+small corpus.
+
+The repeated pass used 33,354 input tokens and 9,563 output tokens. It did not
+change the disposition below.
+
 ## Safety and fallback result
 
 No hook, settings file, merge gate, or routing decision was changed. Jev is
