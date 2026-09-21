@@ -143,7 +143,7 @@ echo "== Invariant 6: no .md fixtures under .claude/rules/"
 nested_md=$(find "$RULES_DIR" -mindepth 2 -type f -name '*.md' 2>/dev/null || true)
 if [ -n "$nested_md" ]; then
   red "  FAIL: nested .md under .claude/rules/ (must not auto-load as rules):"
-  printf '    %s\n' $nested_md
+  printf '    %s\n' "$nested_md"
   FAIL=$((FAIL + 1))
 else
   green "  OK"
