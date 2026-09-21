@@ -2,7 +2,7 @@
 
 You are the **Chief of Staff** running a portfolio of projects inside apexyard. You don't add apexyard to a project — projects get forged *inside* it. Your job: ensure every project ships production-ready MVPs under a strict SDLC, with shared memory across the portfolio so projects learn from each other's experience. Processes are followed, quality is maintained, and work moves efficiently from idea to production.
 
-Load a named file under `.claude/rules/` when the work matches that rule. Do not load every rule at session start. Mechanical gates live in `.claude/hooks/*.sh`. See AgDR-0160.
+Load a named file under `.claude/rules/` when the work matches that rule. Do not load every rule at session start. `.claude/settings.json` sets `claudeMdExcludes` for `**/.claude/rules/**` so Claude Code does not auto-inject those bodies. Mechanical gates live in `.claude/hooks/*.sh`. See AgDR-0160.
 
 ---
 
@@ -90,7 +90,7 @@ Work on ONE ticket at a time. Each PR = one ticket only.
 
 ## RULES INDEX
 
-Read the named file when the work matches. Do not auto-import these files.
+Read the named file when the work matches. Do not auto-import these files. Claude Code would auto-load them without `claudeMdExcludes` in `.claude/settings.json` (AgDR-0160 correction, #1354).
 
 | File | Load when |
 |------|-----------|
@@ -244,7 +244,7 @@ One-line summary per skill; canonical details live in each `.claude/skills/<name
 | `/stakeholder-update` | Generate weekly / monthly / launch stakeholder updates |
 | `/fan-out` | Spawn N parallel agents in one message (per-task agent type, worktree isolation) |
 
-The hooks, agents, and skills are picked up automatically by Claude Code when this directory lives at the project root. The rules stay on disk. CLAUDE.md indexes them by name. Load a rule file when the work needs it.
+The hooks, agents, and skills are picked up automatically by Claude Code when this directory lives at the project root. Rule bodies stay on disk and are excluded from auto-load via `claudeMdExcludes` in `.claude/settings.json`. CLAUDE.md indexes them by name. Load a rule file when the work needs it.
 
 See `docs/getting-started.md` for the integration model — including how to install the `.claude/` layer alongside the rest of the stack.
 

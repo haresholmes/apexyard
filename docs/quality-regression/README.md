@@ -4,7 +4,7 @@ The framework keeps a small, permanent corpus of real failure cases and a runner
 
 ## The corpus
 
-The cases are the three fixture files the rules already ship. They are the single source of truth; this directory adds only the index, the runner, and the results.
+The cases live in three fixture files under `docs/quality-regression/fixtures/`. They are the single source of truth; this directory also holds the index, the runner results, and the corpus docs.
 
 | File | Prefix | Dimension | Cases |
 |------|--------|-----------|-------|

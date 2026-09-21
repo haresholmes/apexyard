@@ -88,3 +88,32 @@ AGENTS.md index.
 - AgDR-0044
 - AgDR-0157
 - AgDR-0159
+
+## Correction (2026-09-21) — #1354
+
+Wave 2 assumed that removing `@.claude/rules/` imports from `CLAUDE.md`
+was enough to drop rule bodies from the session-start catalogue. That
+assumption was false.
+
+Claude Code also auto-loads every markdown file under `.claude/rules/`
+as project memory. It does this without any `@` path and without a
+`paths:` frontmatter filter. The measured cost on #1354 was about
+175 KB (~44k tokens) of rule text on every session, including the three
+regression fixture files that lived under `.claude/rules/tests/`.
+
+**Corrected decision**
+
+1. Keep the CLAUDE.md index and the "Read on demand" instruction from
+   this record.
+2. Add `"claudeMdExcludes": ["**/.claude/rules/**"]` to
+   `.claude/settings.json` so Claude Code does not inject rule bodies
+   at session start.
+3. Keep fixtures and rule smoke tests outside `.claude/rules/` so they
+   cannot re-enter the auto-load tree if the exclude is removed.
+4. Agents still `Read` a named rule file when the work needs it.
+
+Removing `@` imports alone remains necessary. It is not sufficient.
+The exclude is the mechanical control. The fixture move is defence in
+depth.
+
+See me2resh/apexyard#1354.
