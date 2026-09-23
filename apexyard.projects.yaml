@@ -1,0 +1,28 @@
+version: 1
+
+projects:
+  - name: begad
+    repo: haresholmes/begad
+    workspace: workspace/begad
+    docs: projects/begad
+    status: active
+    tier: P0
+    roles:
+      - tech-lead
+      - backend-engineer
+      - platform-engineer
+      - qa-engineer
+      - security-auditor
+    tags:
+      - customer-facing
+      - revenue
+      - production
+      - uae
+    ticket_prefix: GH
+
+defaults:
+  status: active
+  tier: P1
+  ticket_prefix: GH
+  roles:
+    - tech-lead
